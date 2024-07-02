@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Reports</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <style>
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f0f0f0;
+  margin: 0;
+  padding: 0;
+}
+
+header {
+  background-color:#8fdea4;
+  color: black;
+  text-align: center;
+  padding: 10px 0;
+}
+
+.container {
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: burlywood;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h1, h2 {
+  text-align: center;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+table th, table td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+table th {
+  background-color: #333;
+  color: white;
+}
+
+table tbody tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+  </style>
+  <body id="reports-page">
+    <header>
+      <h1>Reports</h1>
+    </header>
+    <div class="container">
+      <h2>Session Details</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Sport</th>
+            <th>Teams</th>
+            <th>Date</th>
+            <th>Venue</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% sessions.forEach(session => { %>
+          <tr>
+            <td><%= session.sport_name %></td>
+            <td><%= session.team1 %> vs <%= session.team2 %></td>
+            <td><%= session.date %></td>
+            <td><%= session.venue %></td>
+          </tr>
+          <% }) %>
+        </tbody>
+      </table>
+      <h2>Sport Popularity</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Sport</th>
+            <th>Number of Sessions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% popularity.forEach(sport => { %>
+          <tr>
+            <td><%= sport.name %></td>
+            <td><%= sport.count %></td>
+          </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    </div>
+  </body>
+</html>

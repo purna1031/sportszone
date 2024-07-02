@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Player Dashboard</title>
+  <style>
+    /* Reset and base styles */
+    body {
+      font-family: "Arial", sans-serif;
+      background-size: cover;
+      background-position: center;
+      color: #333;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    header {
+      background: #8fdea4;
+      color: black;
+      padding: 10px;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      text-align: center;
+    }
+
+    /* Navigation styles */
+    nav {
+      background: #8fdea4;
+      padding: 10px 0;
+      text-align: center;
+    }
+
+    nav ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    nav ul li {
+      display: inline-block;
+      margin: 0 10px;
+    }
+
+    nav ul li a {
+      color: black;
+      text-decoration: none;
+      font-size: 18px;
+      transition: color 0.3s;
+    }
+
+    nav ul li a:hover {
+      color: white;
+      background-color: grey;
+      padding: 2px 10px;
+      border-radius: 5px;
+    }
+
+    /* Dashboard specific styles */
+    .dashboard {
+      margin-top: 20px;
+    }
+
+    .sess {
+      background-color: burlywood;
+      padding: 20px;
+      margin: 20px 0;
+      border-radius: 10px;
+    }
+
+    .sessions-list {
+      list-style: none;
+      padding: 0;
+    }
+
+    .session-item {
+      background: rgba(255, 255, 255, 0.8);
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      margin-bottom: 10px;
+      padding: 10px;
+      position: relative;
+    }
+
+    .session-item .session-info {
+      margin-bottom: 10px;
+    }
+
+    .session-item .session-actions {
+      position: absolute;
+      bottom: 5px;
+      right: 5px;
+    }
+
+    .session-item .session-actions form {
+      display: inline-block;
+    }
+
+    .session-item .session-actions form button {
+      background-color: #333;
+      color: #fff;
+      border: none;
+      padding: 8px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-left: 10px;
+    }
+
+    .session-item .session-actions form button:hover {
+      background-color: #555;
+    }
+
+    .create-session {
+      margin-top: 20px;
+      background: rgba(255, 255, 255, 0.9);
+      padding: 20px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+    }
+
+    .create-session label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+
+    .create-session input[type="text"],
+    .create-session input[type="number"],
+    .create-session input[type="datetime-local"],
+    .create-session select {
+      width: calc(100% - 20px);
+      padding: 10px;
+      margin-bottom: 10px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+    }
+
+    .create-session button {
+      background-color: #333;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 1em;
+    }
+
+    .create-session button:hover {
+      background-color: #555;
+    }
+    .styl{
+        background-color:burlywood;
+            padding: 40px;
+            margin:40px;
+            border-radius: 10px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Welcome, <%= user.name %></h1>
+    <nav>
+      <ul>
+        <li><a href="/playerdash"></a></li>
+        <li><a href="/change">Change Password</a></li>
+        <li><a href="/logout">Logout</a></li>
+      </ul>
+    </nav>
+  </header>
+  <div class="container">
+    <div class="dashboard">
+      <div class="sess">
+        <h2>Sessions</h2>
+        <ul class="sessions-list">
+          <% sessions.forEach(session => { %>
+            <li class="session-item">
+              <div class="session-info">
+                <p>
+                  Sport: <%= session.sport_name %><br>
+                  Teams: <%= session.team1 %> vs <%= session.team2 %><br>
+                  Date: <%= session.date %><br>
+                  Venue: <%= session.venue %>
+                </p>
+              </div>
+              <div class="session-actions">
+                <% if (session.is_joined) { %>
+                  (Joined)
+                <% } else { %>
+                  <form action="/join-player-session" method="POST">
+                    <input type="hidden" name="session_id" value="<%= session.id %>">
+                    <button type="submit">Join</button>
+                  </form>
+                <% } %>
+                <% if (session.creator_id === user.id) { %>
+                  <form action="/delete-player-session/<%= session.id %>" method="POST">
+                    <button type="submit">Delete</button>
+                  </form>
+                <% } %>
+              </div>
+            </li>
+          <% }) %>
+        </ul>
+      </div>
+
+      <div class="styl">
+        <div class="create-session">
+        <h2>Create Session</h2>
+        <form action="/create-player-session" method="POST">
+          <label for="sport_id">Sport:</label>
+          <select name="sport_id" id="sport_id">
+            <% sports.forEach(sport => { %>
+              <option value="<%= sport.id %>"><%= sport.name %></option>
+            <% }) %>
+          </select>
+          <label for="team1">Team 1:</label>
+          <input type="text" name="team1" id="team1" required>
+          <label for="team2">Team 2:</label>
+          <input type="text" name="team2" id="team2" required>
+          <label for="additional_players">Additional Players:</label>
+          <input type="number" name="additional_players" id="additional_players" required>
+          <label for="date">Date:</label>
+          <input type="datetime-local" name="date" id="date" required>
+          <label for="venue">Venue:</label>
+          <input type="text" name="venue" id="venue" required>
+          <button type="submit">Create Session</button>
+        </form>
+      </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

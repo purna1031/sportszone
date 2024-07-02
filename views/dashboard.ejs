@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sports Website</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<style>
+    /* General Styles */
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        color: #333;
+        background-color: #f4f4f4;
+    }
+
+    header {
+        background: #8fdea4;
+        color: black;
+        padding: 10px;
+        position:sticky;
+        top:0;
+    }
+
+    nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+
+    .logo {
+        font-size: 1.8em;
+        font-weight: bold;
+    }
+
+    nav ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+    }
+
+    nav ul li {
+        margin-left: 20px;
+        font-weight: 100;
+    }
+
+
+
+    nav ul li a {
+        color: black;
+        text-decoration: none;
+        transition: color 0.3s;
+        font-size: 20px;
+    }
+
+    nav ul li a:hover {
+        color: white;
+        padding: 2px;
+        background-color: grey;
+        border-radius: 5px;
+    }
+
+    #hero {
+        background: url('https://www.shutterstock.com/image-vector/colorful-concept-sports-silhouettes-sport-600nw-2378868431.jpg') no-repeat center center/cover;
+        color: rgb(59, 2, 2);
+        text-align: center;
+        padding: 100px 20px;
+        opacity:0.69;
+    }
+
+    .hero-content {
+        max-width: 800px;
+        margin: 0 auto;
+    }
+
+    .hero-content h1 {
+        font-size: 3em;
+        margin-bottom: 10px;
+        padding-top: 150px;
+    }
+
+    .hero-content p {
+        font-size: 1.2em;
+        margin-bottom: 20px;
+    }
+
+    .cta {
+        background: #ff6347;
+        color: #fff;
+        padding: 10px 20px;
+        text-decoration: none;
+        border-radius: 5px;
+        transition: background 0.3s;
+    }
+
+    .cta:hover {
+        background: #ff4500;
+    }
+
+    #features {
+        display: flex;
+        justify-content: space-around;
+        padding: 50px 20px;
+        background: #fff;
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+
+    .feature {
+        max-width: 300px;
+        text-align: center;
+        border: 2px solid #000; /* Adjusted border */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: Add some shadow for better visual */
+        padding: 20px; /* Optional: Add padding inside the box */
+        margin: 20px; /* Optional: Add margin between the boxes */
+        background-color: #fff; /* Optional: Set background color */
+        border-radius: 10px; /* Optional: Add rounded corners */
+    }
+
+    .feature h2 {
+        font-size: 2em;
+        margin-bottom: 10px;
+    }
+
+    #feedback {
+        text-align: center;
+        background-color:#fff;
+    }
+
+    #feedback input {
+        padding: 60px;
+        border-radius: 20px;
+    }
+
+    footer {
+        text-align: center;
+        padding: 20px;
+        background: #333;
+        color: #fff;
+    }
+</style>
+<body>
+    <header>
+        <nav>
+            <div class="logo">SportsZone</div>
+            <ul>
+                <li><a href="#hero">Home</a></li>
+                <li><a href="#features">Features</a></li>
+                <li><a href="#feedback">Contact</a></li>
+                <li><a href="login">Login</a></li>
+            </ul>
+        </nav>
+    </header>
+    <section id="hero">
+        <div class="hero-content">
+            <h1>Welcome to SportsZone</h1>
+            <p>Your ultimate destination for sports news and updates</p>
+            <a href="login" class="cta">Get Started</a>
+        </div>
+    </section>
+    <section id="features">
+        <div class="feature">
+            <h2>Sports</h2>
+            <p>The admin can add the sports.the added sports can be viewed and played by the players.</p>
+        </div>
+        <div class="feature">
+            <h2>Create Sessions</h2>
+            <p>Both Admin and Player can create a session for a game at a particular time period.</p>
+        </div>
+        <div class="feature">
+            <h2>Join Sessions</h2>
+            <p>Admin can also join the sessions to play the sport and also can able to delete the session.</p>
+        </div>
+        <div class="feature">
+            <h2>Password Change</h2>
+            <p>The player and the Admin can change the password by clicking the button provided in their interface.</p>
+        </div>
+        <div class="feature">
+            <h2>User Integrity</h2>
+            <p>We save the user details and passwords in a encrypted way.</p>
+        </div>
+        <div class="feature">
+            <h2>Match Schedules</h2>
+            <p>Never miss a game with our comprehensive schedules</p>
+        </div>
+    </section>
+    <div id="feedback">
+        <p>Your description here</p>
+        <form id="feedbackForm">
+            <input type="text" placeholder="Type here...." id="feedbackInput" name="feedback">
+            <button type="submit" onclick="alert('feedback saved')">Submit</button>
+        </form>
+    </div>
+    <footer>
+        <p>&copy; 2024 SportsZone. All rights reserved.</p>
+    </footer>
+</body>
+<script>
+    document.getElementById('feedbackForm').addEventListener('submit', function(event) {
+        event.preventDefault(); // Prevent form submission
+        var feedbackInput = document.getElementById('feedbackInput');
+        console.log('Feedback submitted: ' + feedbackInput.value); 
+        feedbackInput.value = '';
+    });
+</script>
+</html>
